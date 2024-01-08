@@ -6,10 +6,11 @@ from services import trainers
 from services.handlers import command_handlers
 
 
-
 flask_app = flask.Flask(__name__)
 
-#TODO: message bus and DI
+#  TODO: message bus and DI
+
+
 @flask_app.route("/api/model/train", methods=["POST"])
 def train_model():
     body = flask.request.get_json()

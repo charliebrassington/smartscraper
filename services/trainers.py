@@ -13,12 +13,12 @@ class TrainerService:
     def __init__(self, name: str) -> None:
         disk_loader = disk_loaders.DatasetLoaderAdapter(folder="datasets")
         self.dataset = disk_loader.load(file=f"{name}_dataset.json", value_name=name)
-        self._preprocessing_methods: Dict[str, object] = {
+        self._preprocessing_methods: Dict[str, Any] = {
             "values": CountVectorizer(),
             "labels": LabelEncoder()
         }
 
-    def process_dataset(self) ->  List[Any]:
+    def process_dataset(self) -> List[Any]:
         return [
             method.fit_transform(getattr(self.dataset, attribute))
             for attribute, method in self._preprocessing_methods.items()

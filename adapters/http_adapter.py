@@ -13,4 +13,4 @@ class HttpRequestAdapter:
 
     def send_request(self, url: str) -> bs4.BeautifulSoup:
         response = self.sessions[url.startswith("http://")].get(url=url)
-        return bs4.BeautifulSoup(response.text, features="lxml")
+        return bs4.BeautifulSoup(response.text)

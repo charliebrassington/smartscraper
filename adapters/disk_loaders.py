@@ -11,7 +11,11 @@ class AbstractDiskLoader(abc.ABC):
         self.folder = folder
 
     def generate_path_to_file(self, file_name: str) -> str:
-        return rf"{os.getcwd()}\{self.folder}\{file_name}"
+        return (
+            rf"{os.getcwd()}\{self.folder}\{file_name}"
+            if os.name == "nt"
+            else f"{os.getcwd()}/{self.folder}/{file_name}"
+        )
 
     @abc.abstractmethod
     def load(self, **kwargs) -> None:
