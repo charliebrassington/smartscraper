@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from domain import models
 
+
 class BaseCommand:
     pass
 
@@ -14,3 +15,4 @@ class ScrapeUrl(BaseCommand):
 @dataclass
 class TrainModel(BaseCommand):
     model_name: str
+    training_iterations: int

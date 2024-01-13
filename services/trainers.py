@@ -24,8 +24,8 @@ class TrainerService:
             for attribute, method in self._preprocessing_methods.items()
         ]
 
-    def train(self) -> models.TrainedModel:
-        model = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=5000)
+    def train(self, training_loops: int) -> models.TrainedModel:
+        model = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=training_loops)
         model.fit(*self.process_dataset())
 
         return models.TrainedModel(

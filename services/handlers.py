@@ -42,7 +42,7 @@ def train_model_handler(
     global_model_store: model_store.GlobalClassificationModels
 ) -> None:
     trainer_object = trainer(name=cmd.model_name)
-    trained_model = trainer_object.train()
+    trained_model = trainer_object.train(training_loops=cmd.training_iterations)
 
     global_model_store.add_trained_model(name=cmd.model_name, trained_model=trained_model)
 
