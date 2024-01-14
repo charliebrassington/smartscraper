@@ -2,6 +2,7 @@ import abc
 import typing
 import json
 import collections
+import bs4
 
 from services import classifiers, flattener
 from domain import models
@@ -38,18 +39,22 @@ class AbstractParserService(abc.ABC):
 
 class HtmlParser(AbstractParserService):
 
+    def _build_html_element(self, element):
+        string_contents = "".join(content for content in element.contents if not isinstance(content, bs4.element.Tag))
+        string_attrs = " ".join(f'{name}="{value}"' for name, value in element.attrs.items())
+        return f"<{element.name} {string_attrs}>{''.join(string_contents)}</{element.name}>"
+
     def _guess_label(self, text: typing.Any) -> str | None:
-        if text.name not in {"style", "path"}:
+        if not text.startswith(("<style", "<path")):
             return self.classifier.classify_text(unclassified_text=str(text))
 
         return None
 
     def _gather_tasks(self, data: typing.Any) -> None:
         self.tasks.extend(
-            element
+            self._build_html_element(element=element)
             for tag_name in list({tag.name for tag in data.find_all()})
             for element in data.find_all(tag_name)
-            if not element.find_all(recursive=False)
         )
 
 

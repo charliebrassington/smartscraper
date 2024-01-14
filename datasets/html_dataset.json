@@ -2262,5 +2262,9 @@
     {
         "html": "<h1>User319183</h1>",
         "label": "unwanted"
+    },
+    {
+        "html": "<a href=\"mailto:user319183@mailvs.net\">user319183@mailvs.net</a>",
+        "label": "email"
     }
 ]
