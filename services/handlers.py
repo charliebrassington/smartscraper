@@ -19,6 +19,8 @@ def _handle_classifying(
     classifier_service: typing.Type[classifiers.ClassifierService]
 ) -> typing.List[models.ResultCategory]:
     trained_model = global_model_store.get_trained_model(name=name)
+    if trained_model is None:
+        return []
 
     classifier = classifier_service(trained_model=trained_model)
     parser = parsers.name_to_parser[name](classifier=classifier)
